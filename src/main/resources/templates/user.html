@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователь</title>
+</head>
+<body>
+<h1>Данные пользователя:</h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Role</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${currentUser.getId()}">Id</td>
+        <td th:text="${currentUser.getFirstName()}">First Name</td>
+        <td th:text="${currentUser.getLastName()}">Last Name</td>
+        <td th:text="${currentUser.getAge()}">Age</td>
+        <td th:text="${currentUser.getEmail()}">Email</td>
+        <td th:each="role : ${currentUser.getAuthorities()}">
+            <a th:text="${role.getAuthority()}">roles</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br/>
+<form class="button" th:method="GET" th:action="@{/logout}">
+    <input type="submit" value="Выйти из учётной записи"/>
+</form>
+</body>
+</html>
