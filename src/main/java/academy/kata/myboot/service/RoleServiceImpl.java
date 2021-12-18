@@ -27,10 +27,6 @@ public class RoleServiceImpl implements RoleService{
 
     @Override
     public List<Role> getRolesById(Long[] ids) {
-        List<Role> allById = new ArrayList<>();
-        if (ids != null) {
-            allById = roleRepository.findAllById(Arrays.asList(ids));
-        }
-        return allById;
+        return ids != null ? roleRepository.findAllById(Arrays.asList(ids)) : new ArrayList<>();
     }
 }

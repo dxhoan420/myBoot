@@ -30,7 +30,7 @@ public class User implements UserDetails {
         StringBuilder resultString = new StringBuilder();
         if (authorities != null) {
             for (Role role: authorities) {
-                resultString.append(role.getCleanRole());
+                resultString.append(role.getRoleName());
                 resultString.append(' ');
             }
         }

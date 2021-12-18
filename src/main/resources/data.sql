@@ -6,7 +6,7 @@
 # )
 #     engine = MyISAM;
 #
-# REPLACE INTO `roles` VALUES (1,'ROLE_ADMIN'), (2,'ROLE_USER');
+# REPLACE INTO `roles` VALUES (1,'ADMIN'), (2,'USER');
 #
 # create table if not exists users
 # (
