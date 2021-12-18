@@ -10,6 +10,9 @@
 <form class="button" th:method="GET" th:action="@{/user}">
     <input type="submit" value="Моя страница пользователя"/>
 </form>
+<form class="button" th:method="GET" th:action="@{/logout}">
+    <input type="submit" value="Выйти из учётной записи"/>
+</form>
 <hr/>
 <table class="table">
     <thead>
@@ -33,17 +36,11 @@
         <td th:text="${user.getEmail()}">Email</td>
         <td th:text="${user.getAllRoles()}">Roles</td>
         <td>
-            <a th:href="'/admin/delete_user_by/id/' + ${user.getId()}"  th:text="'DELETE ' + ${user.getFirstName()}">DELETE
+            <a th:href="'/admin/delete_user_by/id/' + ${user.getId()}"  th:text="'DELETE ' + ${user.getFirstName()}">DELETE_URL</a>
         </td>
     </tr>
     </tbody>
 </table>
-<br/>
-<hr/>
-<br/>
-<form class="button" th:method="GET" th:action="@{/logout}">
-    <input type="submit" value="Выйти из учётной записи"/>
-</form>
 <br/>
 <hr/>
 <h2>Создание пользователя</h2>
@@ -54,8 +51,10 @@
     <input type="text" th:field="*{lastName}" id = "lastName"/>
     <label for = "age">Возраст: </label>
     <input type="text" th:field="*{age}" id = "age"/>
-    <label for = "email">Почта: </label>
-    <input type="text" th:field="*{email}" id = "email"/>
+    <p><label for = "email">Почта: </label>
+    <input type="text" th:field="*{email}" id = "email"/> Используется для входа</p>
+    <p><label for = "password">Пароль: </label>
+    <input type="text" th:field="*{password}" id = "password"/></p>
     <tr>
         <td>Права доступа</td>
         <td>

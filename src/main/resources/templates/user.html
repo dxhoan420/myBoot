@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Пользователь</title>
@@ -25,14 +25,23 @@
         <td th:text="${currentUser.getAge()}">Age</td>
         <td th:text="${currentUser.getEmail()}">Email</td>
         <td th:each="role : ${currentUser.getAuthorities()}">
-            <a th:text="${role.getAuthority()}">roles</a>
+            <a th:text="${role.getRoleName()}">roles</a>
         </td>
     </tr>
     </tbody>
 </table>
 <br/>
-<form class="button" th:method="GET" th:action="@{/logout}">
-    <input type="submit" value="Выйти из учётной записи"/>
-</form>
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    <form class="button" th:method="GET" th:action="@{/admin}">
+        <input type="submit" value="Назад"/>
+    </form>
+</div>
+<div sec:authorize="hasRole('ROLE_USER')">
+    <form class="button" th:method="GET" th:action="@{/logout}">
+        <input type="submit" value="Выйти из учётной записи"/>
+    </form>
+</div>
+
+
 </body>
 </html>

@@ -14,8 +14,6 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String password;
-    @Transient
-    private String confirmPassword;
     private String firstName;
     private String lastName;
     private int age;

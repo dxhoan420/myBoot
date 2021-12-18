@@ -1,7 +1,6 @@
 package academy.kata.myboot.config;
 
 import academy.kata.myboot.config.handler.LoginSuccessHandler;
-import academy.kata.myboot.service.RoleService;
 import academy.kata.myboot.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -18,7 +17,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserService userService; // сервис, с помощью которого тащим пользователя
     private LoginSuccessHandler successHandler; // класс, в котором описана логика перенаправления пользователей по ролям
-    private RoleService roleService;
+    private PasswordEncoder passwordEncoder;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -32,13 +31,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/login").anonymous()
             // защищенные URL
             .antMatchers("/user").access("hasAnyRole('ADMIN', 'USER')")
-            .antMatchers("/admin").access("hasRole('ADMIN')").anyRequest().authenticated();
+            .antMatchers("/admin", "/admin/**").access("hasRole('ADMIN')").anyRequest().authenticated();
     }
 
     //TODO: Поменять на bCrypt
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder);
     }
 
 //    @PostConstruct

@@ -1,23 +1,22 @@
 package academy.kata.myboot.controller;
 
-import academy.kata.myboot.model.Role;
 import academy.kata.myboot.model.User;
 import academy.kata.myboot.service.RoleService;
 import academy.kata.myboot.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 
 @Controller
 @AllArgsConstructor
 public class UserController {
     private RoleService roleService;
     private UserService userService;
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/")
     public String getRoot() {
@@ -42,13 +41,14 @@ public class UserController {
     public String createUser(@ModelAttribute("newuser") User user,
                              @RequestParam(value="checked", required = false) Long[] checked) {
         user.setAuthorities(roleService.getRolesById(checked));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.saveUser(user);
-        return "redirect:/admin/";
+        return "redirect:/admin";
     }
 
     @GetMapping("/admin/delete_user_by/id/{id}")
     public String getEditForm(@PathVariable("id") long id) {
         userService.deleteUser(id);
-        return "redirect:/admin/";
+        return "redirect:/admin";
     }
 }
