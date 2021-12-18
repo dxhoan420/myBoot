@@ -15,5 +15,7 @@ public interface UserService extends UserDetailsService {
 
     boolean deleteUser(Long id);
 
-    public User findUserByEmail(String email);
+    User findUserByEmail(String email);
+
+    boolean editUser(User user, Long id);
 }

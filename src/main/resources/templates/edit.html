@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование</title>
+</head>
+<body>
+<h1>Редактирование</h1>
+<form th:method="PATCH" th:action="@{'/admin/' + ${user.getId()}}" th:object="${user}">
+    <label for="firstName">Имя: </label>
+    <input type="text" th:field="*{firstName}" id = "firstName"/>
+    <label for = "lastName">Фамилия: </label>
+    <input type="text" th:field="*{lastName}" id = "lastName"/>
+    <label for = "age">Возраст: </label>
+    <input type="text" th:field="*{age}" id = "age"/>
+    <p><label for = "email">Почта: </label>
+        <input type="text" th:field="*{email}" id = "email"/> Используется для входа</p>
+    <p><label for = "password">Пароль: </label>
+        <input type="text" th:field="*{password}" id = "password"/></p>
+    <tr>
+        <td>Права доступа</td>
+        <td>
+            <th:block th:each="role : ${roles}">
+                <input type="checkbox" name="checked" th:value="${role.getId()}"/>
+                <label th:text="${role.getAuthority()}"></label>
+            </th:block>
+        </td>
+    </tr>
+    <hr/>
+    <input type="submit" value="Сохранить"/>
+</form>
+<br/>
+<form class="button" th:method="GET" th:action="@{/admin}">
+    <input type="submit" value="Отмена"/>
+</form>
+</body>
+</html>

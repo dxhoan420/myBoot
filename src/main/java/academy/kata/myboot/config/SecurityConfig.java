@@ -34,7 +34,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/admin", "/admin/**").access("hasRole('ADMIN')").anyRequest().authenticated();
     }
 
-    //TODO: Поменять на bCrypt
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder);

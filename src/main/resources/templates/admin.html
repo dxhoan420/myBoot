@@ -36,7 +36,10 @@
         <td th:text="${user.getEmail()}">Email</td>
         <td th:text="${user.getAllRoles()}">Roles</td>
         <td>
-            <a th:href="'/admin/delete_user_by/id/' + ${user.getId()}"  th:text="'DELETE ' + ${user.getFirstName()}">DELETE_URL</a>
+            <a th:href="'/admin/delete/' + ${user.getId()}"  th:text="'DELETE ' + ${user.getFirstName()}">DELETE_URL</a>
+        </td>
+        <td>
+            <a th:href="'/admin/edit/' + ${user.getId()}"  th:text="'EDIT ' + ${user.getFirstName()}">DELETE_URL</a>
         </td>
     </tr>
     </tbody>
@@ -52,7 +55,7 @@
     <label for = "age">Возраст: </label>
     <input type="text" th:field="*{age}" id = "age"/>
     <p><label for = "email">Почта: </label>
-    <input type="text" th:field="*{email}" id = "email"/> Используется для входа</p>
+        <input type="text" th:field="*{email}" id = "email"/> Используется для входа</p>
     <p><label for = "password">Пароль: </label>
     <input type="text" th:field="*{password}" id = "password"/></p>
     <tr>

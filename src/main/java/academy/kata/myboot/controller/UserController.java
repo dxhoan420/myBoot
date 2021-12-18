@@ -30,13 +30,14 @@ public class UserController {
     }
 
     @GetMapping("/admin")
-    public String getAdminPage(Principal principal, Model model) {
+    public String getAdminPage(Model model) {
         model.addAttribute("users", userService.getAllUser());
         model.addAttribute("newuser", new User());
         model.addAttribute("roles", roleService.getAllRoles());
         return "admin";
     }
 
+    //Шифрование пароля и сам бин passwordEncoder может тут находиться, или должен быть в слое сервиса?
     @PostMapping("/admin")
     public String createUser(@ModelAttribute("newuser") User user,
                              @RequestParam(value="checked", required = false) Long[] checked) {
@@ -46,9 +47,25 @@ public class UserController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/admin/delete_user_by/id/{id}")
-    public String getEditForm(@PathVariable("id") long id) {
+    @GetMapping("/admin/delete/{id}")
+    public String getDeleteForm(@PathVariable("id") long id) {
         userService.deleteUser(id);
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/admin/edit/{id}")
+    public String getEditForm(@PathVariable("id") long id, Model model) {
+        model.addAttribute("user", userService.getUser(id));
+        model.addAttribute("roles", roleService.getAllRoles());
+        return "edit";
+    }
+
+    //При редактировании пользователя шифрование убрал в слой сервиса
+    @PatchMapping("/admin/{id}")
+    public String editUser(@PathVariable("id") Long id, @ModelAttribute("user") User user,
+                           @RequestParam(value="checked", required = false) Long[] checked) {
+        user.setAuthorities(roleService.getRolesById(checked));
+        userService.editUser(user, id);
         return "redirect:/admin";
     }
 }
