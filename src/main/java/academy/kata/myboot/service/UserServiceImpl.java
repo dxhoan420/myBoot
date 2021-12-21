@@ -7,12 +7,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
@@ -26,6 +28,7 @@ public class UserServiceImpl implements UserService {
         return optionalUser.orElse(null);
     }
 
+    @Transactional
     public boolean saveUser(User user) {
         try {
             userRepository.save(user);
@@ -35,6 +38,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Transactional
     public boolean deleteUser(Long id) {
         try {
             userRepository.deleteById(id);
@@ -48,7 +52,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.findUserByEmail(email);
     }
 
-    //Лучше тут шифровать или в контроллере? Чот не могу решить. И когда вообще пользоваться flush?
+    @Transactional
     public boolean editUser(User user, Long id) {
         if (!user.getId().equals(id))
             return false;
