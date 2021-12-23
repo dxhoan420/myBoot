@@ -30,14 +30,14 @@ public class UserController {
     }
 
     @GetMapping("/admin")
-    public String getAdminPage(Model model) {
+    public String getAdminPage(Principal principal, Model model) {
+        model.addAttribute("currentUser", userService.findUserByEmail(principal.getName()));
         model.addAttribute("users", userService.getAllUser());
         model.addAttribute("newuser", new User());
         model.addAttribute("roles", roleService.getAllRoles());
         return "admin";
     }
 
-    //Шифрование пароля и сам бин passwordEncoder может тут находиться, или должен быть в слое сервиса?
     @PostMapping("/admin")
     public String createUser(@ModelAttribute("newuser") User user,
                              @RequestParam(value="checked", required = false) Long[] checked) {
@@ -60,7 +60,6 @@ public class UserController {
         return "edit";
     }
 
-    //При редактировании пользователя шифрование убрал в слой сервиса
     @PatchMapping("/admin/{id}")
     public String editUser(@PathVariable("id") Long id, @ModelAttribute("user") User user,
                            @RequestParam(value="checked", required = false) Long[] checked) {
