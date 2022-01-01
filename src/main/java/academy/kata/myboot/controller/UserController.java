@@ -24,15 +24,14 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    public String getUserPage(Principal principal, Model model) {
-        model.addAttribute("currentUser", userService.findUserByEmail(principal.getName()));
-        return "user";
+    public String getUserPage() {
+        return "new_user";
     }
 
     @GetMapping("/admin")
     public String getAdminPage(Principal principal, Model model) {
         model.addAttribute("currentUser", userService.findUserByEmail(principal.getName()));
-        model.addAttribute("users", userService.getAllUser());
+        model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("newuser", new User());
         model.addAttribute("roles", roleService.getAllRoles());
         return "admin";
