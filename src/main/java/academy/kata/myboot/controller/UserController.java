@@ -29,41 +29,30 @@ public class UserController {
     }
 
     @GetMapping("/admin")
-    public String getAdminPage(Principal principal, Model model) {
-        model.addAttribute("currentUser", userService.findUserByEmail(principal.getName()));
-        model.addAttribute("users", userService.getAllUsers());
-        model.addAttribute("newuser", new User());
-        model.addAttribute("roles", roleService.getAllRoles());
-        return "admin";
+    public String getAdminPage() {
+        return "new_admin";
     }
 
-    @PostMapping("/admin")
-    public String createUser(@ModelAttribute("newuser") User user,
-                             @RequestParam(value="checked", required = false) Long[] checked) {
-        user.setAuthorities(roleService.getRolesById(checked));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userService.saveUser(user);
-        return "redirect:/admin";
-    }
-
-    @GetMapping("/admin/delete/{id}")
-    public String getDeleteForm(@PathVariable("id") long id) {
-        userService.deleteUser(id);
-        return "redirect:/admin";
-    }
-
-    @GetMapping("/admin/edit/{id}")
-    public String getEditForm(@PathVariable("id") long id, Model model) {
-        model.addAttribute("user", userService.getUser(id));
-        model.addAttribute("roles", roleService.getAllRoles());
-        return "edit";
-    }
-
-    @PatchMapping("/admin/{id}")
-    public String editUser(@PathVariable("id") Long id, @ModelAttribute("user") User user,
-                           @RequestParam(value="checked", required = false) Long[] checked) {
-        user.setAuthorities(roleService.getRolesById(checked));
-        userService.editUser(user, id);
-        return "redirect:/admin";
-    }
+//    @PostMapping("/admin")
+//    public String createUser(@ModelAttribute("newuser") User user,
+//                             @RequestParam(value="checked", required = false) Long[] checked) {
+//        user.setAuthorities(roleService.getRolesById(checked));
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        userService.saveUser(user);
+//        return "redirect:/admin";
+//    }
+//
+//    @GetMapping("/admin/delete/{id}")
+//    public String getDeleteForm(@PathVariable("id") long id) {
+//        userService.deleteUser(id);
+//        return "redirect:/admin";
+//    }
+//
+//    @PatchMapping("/admin/{id}")
+//    public String editUser(@PathVariable("id") Long id, @ModelAttribute("user") User user,
+//                           @RequestParam(value="checked", required = false) Long[] checked) {
+//        user.setAuthorities(roleService.getRolesById(checked));
+//        userService.editUser(user, id);
+//        return "redirect:/admin";
+//    }
 }

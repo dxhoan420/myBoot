@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+          crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+            crossorigin="anonymous"></script>
+    <title>Admin panel</title>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark">
+    <a class="text-light" id="fill-mail" href="/user">Loading</a>
+    <a class="text-secondary" href="/logout" >Logout</a>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2 px-0">
+            <p>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <a href="/admin" class="btn btn-primary btn-block text-left" type="button">Admin</a>
+            </div>
+            <a href="/user" class="btn btn-link btn-block text-left" type="button">User</a>
+            </p>
+        </div>
+        <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-10 bg-light">
+            <p>
+            <h1>Admin panel</h1></p>
+            <div class="tabbable" id="tabs-981335">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#user_table" data-toggle="tab">User table</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#new_user" data-toggle="tab">New User</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="user_table">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="font-weight-bold">All users</div>
+                            </div>
+                            <div class="card-body">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Age</th>
+                                        <th>Email</th>
+                                        <th>Roles</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="fill-table">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="new_user">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="font-weight-bold">Add new user</div>
+                            </div>
+                            </br>
+                            <div class="row justify-content-center">
+                                <div class="col-4 text-center">
+                                    <form name="MyCreateForm">
+                                        <div class="form-group">
+                                            <label for="firstName" class="font-weight-bold">First name</label>
+                                            <input type="text" class="form-control"
+                                                   id="firstName" placeholder="First name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lastName" class="font-weight-bold">Last name</label>
+                                            <input type="text" class="form-control"
+                                                   id="lastName" placeholder="Last name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="age" class="font-weight-bold">Age</label>
+                                            <input type="text" class="form-control"
+                                                   id="age" placeholder="Age">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email" class="font-weight-bold">Email</label>
+                                            <input type="text" class="form-control"
+                                                   id="email" placeholder="Email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password" class="font-weight-bold">Password</label>
+                                            <input type="text" class="form-control"
+                                                   id="password" placeholder="Password">
+                                        </div>
+                                        <div class="font-weight-bold">Role</div>
+                                        <fieldset id="createCheckboxes"></fieldset>
+                                        </br>
+                                        <button type="submit" class="btn btn-success">Add new user</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>

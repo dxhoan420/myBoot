@@ -17,7 +17,6 @@ fetch(url, {method: 'GET'}).then(res => res.json()).then(user => {
         }
         currentEmail.innerText = user.email + ' with roles: ' + roles;
         output += roles + `</td></tr>`;
-        tableBody.innerText = '';
         tableBody.innerHTML = output;
 });
 
