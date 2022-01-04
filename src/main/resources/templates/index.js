@@ -3,11 +3,11 @@
 // let test = 10
 // console.log("I enjoy your", test / 2)
 
-// document.getElementById("myButton").onclick = function () {
-//
-//     var myName = document.getElementById("myText").value;
-//     console.log("Hello", myName);
-// }
+document.getElementById("myButton").onclick = function () {
+
+    var myName = document.getElementById("myText").value;
+    console.log("Hello", myName);
+}
 
 // function sayHello(){
 //     console.log("Hello",myName);
@@ -55,15 +55,15 @@
 //     console.log(cars[i] + numbers[i])
 // }
 
-let output = 'test';
-console.log(output);
-output += `
-<tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-</tr>`;
-console.log(output);
+// let output = 'test';
+// console.log(output);
+// output += `
+// <tr>
+//     <td></td>
+//     <td></td>
+//     <td></td>
+//     <td></td>
+//     <td></td>
+//     <td></td>
+// </tr>`;
+// console.log(output);

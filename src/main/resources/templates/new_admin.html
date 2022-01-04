@@ -23,6 +23,59 @@
     <a class="text-secondary" href="/logout" >Logout</a>
 </nav>
 
+<div class="modal fade" id="deleteModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">
+                    Delete user
+                </h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row justify-content-center">
+                    <div class="col-6 text-center">
+                        <form>
+                            <fieldset disabled>
+                                <div class="form-group">
+                                    <label for="idDelete" class="font-weight-bold">ID</label>
+                                    <input type="text" id="idDelete" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="firstNameDelete" class="font-weight-bold">First name</label>
+                                    <input type="text" id="firstNameDelete" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastNameDetele" class="font-weight-bold">Last name</label>
+                                    <input type="text" id="lastNameDetele" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="ageDelete" class="font-weight-bold">Age</label>
+                                    <input type="text" id="ageDelete" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="emailDelete" class="font-weight-bold">Email</label>
+                                    <input type="text" id="emailDelete" class="form-control">
+                                </div>
+                            </fieldset>
+                        </form>
+                        <label for="allRolesDelete" class="font-weight-bold">Role</label>
+                        <div id="allRolesDelete" >All Roles</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"> Close
+                </button>
+                <a class="btn btn-danger" role="button" id="delete-in-modal">Delete</a>
+<!--                <input type="submit" class="btn btn-danger" value="Delete"/>-->
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-2 px-0">
